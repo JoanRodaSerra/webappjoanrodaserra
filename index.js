@@ -2,14 +2,13 @@ let validat = false;    // variable que permet saber si hi ha algun usuari valid
 let nom, contrasenya;
 let scriptURL = "https://script.google.com/macros/s/AKfycbzXHfQhXCcVHNocS3nK7P9q60aANFeU6liH5-4ycGTH4_e9rY5a7Kwm5rOcumcXl8pM/exec"    // s'ha de substituir la cadena de text per la URL del script
 
-function canvia_seccio(num_boto) 
-if (num_boto == 3) {    // si es prem el botó de la secció "Galeria"
-    omple_llista();
-}
-if (num_boto == 4) {
-    mapa.invalidateSize();
-}
-{
+function canvia_seccio(num_boto) {
+    if (num_boto == 3) {    // si es prem el botó de la secció "Galeria"
+        omple_llista();
+    }
+    if (num_boto == 4) {
+        mapa.invalidateSize();
+    }
     const menu = document.getElementById("menu");
     const num_botons = menu.children.length;    // el nombre de botons dins de l'element "menu"
     for (let i = 1; i < num_botons; i++) {
