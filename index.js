@@ -5,6 +5,12 @@ let scriptURL = "https://script.google.com/macros/s/AKfycbzXHfQhXCcVHNocS3nK7P9q
 function canvia_seccio(num_boto) {
     const menu = document.getElementById("menu");
     const num_botons = menu.children.length;    // el nombre de botons dins de l'element "menu"
+    if (num_boto == 3) {    // si es prem el botó de la secció "Galeria"
+        omple_llista();
+    }
+    if (num_boto == 4) {
+        mapa.invalidateSize();
+    }
     for (let i = 1; i < num_botons; i++) {
         let boto = document.getElementById("boto_" + i);
         let seccio = document.getElementById("seccio_" + i);
@@ -17,12 +23,6 @@ function canvia_seccio(num_boto) {
             boto.style.color = "white";    // colors dels botons de seccions inactives
             boto.style.backgroundColor = "#950E17";
             seccio.style.display = "none";    // s'oculten les seccions inactives
-        }
-        if (num_boto == 3) {    // si es prem el botó de la secció "Galeria"
-            omple_llista();
-        }
-        if (num_boto == 4) {
-            mapa.invalidateSize();
         }
     }
 }
