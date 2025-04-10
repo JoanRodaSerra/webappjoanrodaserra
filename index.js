@@ -1,3 +1,7 @@
+let validat = false;    // variable que permet saber si hi ha algun usuari validat
+let nom, contrasenya;
+let scriptURL = "https://script.google.com/macros/s/AKfycbzXHfQhXCcVHNocS3nK7P9q60aANFeU6liH5-4ycGTH4_e9rY5a7Kwm5rOcumcXl8pM/exec"    // s'ha de substituir la cadena de text per la URL del script
+
 function canvia_seccio(num_boto) {
     const menu = document.getElementById("menu");
     const num_botons = menu.children.length;    // el nombre de botons dins de l'element "menu"
@@ -14,11 +18,14 @@ function canvia_seccio(num_boto) {
             boto.style.backgroundColor = "#950E17";
             seccio.style.display = "none";    // s'oculten les seccions inactives
         }
+        if (num_boto == 3) {    // si es prem el botó de la secció "Galeria"
+            omple_llista();
+        }
+        if (num_boto == 4) {
+            mapa.invalidateSize();
+        }
     }
 }
-let validat = false;    // variable que permet saber si hi ha algun usuari validat
-let nom, contrasenya;
-let scriptURL = "https://script.google.com/macros/s/AKfycbzXHfQhXCcVHNocS3nK7P9q60aANFeU6liH5-4ycGTH4_e9rY5a7Kwm5rOcumcXl8pM/exec"    // s'ha de substituir la cadena de text per la URL del script
 
 function inici_sessio() {
     nom = document.getElementById("nom_usuari").value;    // la propietat "value" d'un quadre de text correspon al text escrit per l'usuari
@@ -84,6 +91,10 @@ window.onload = () => {
             event.target.result.createObjectStore("Fotos", {keyPath: "ID", autoIncrement:true}).createIndex("Usuari_index", "Usuari");
         }    // les fotos es desen a la taula "Fotos"
         storage.setItem("base_de_dades","ok");
+        mapa = L.map("seccio_4").setView([41.72, 1.82], 8);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {    
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(mapa);
     }
     document.getElementById("obturador").addEventListener("change", function() {    // procediment que s'executa quan s'obté el fitxer de la foto realitzada (esdeveniment "change")
         if(this.files[0] != undefined) {    // instruccions que s'executen només si s'obté algun fitxer (només es processa el primer que es rebi)
@@ -159,9 +170,6 @@ function retorn_a_seccio() {
     } else {    // galeria
         document.getElementById("seccio_3").style.display = "flex";
     }
-}
-if (num_boto == 3) {    // si es prem el botó de la secció "Galeria"
-    omple_llista();
 }
 function omple_llista() {
     let llista = '';
