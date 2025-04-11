@@ -90,13 +90,10 @@ window.onload = () => {
         indexedDB.open("Dades").onupgradeneeded = event => {   
             event.target.result.createObjectStore("Fotos", {keyPath: "ID", autoIncrement:true}).createIndex("Usuari_index", "Usuari");
         }    // les fotos es desen a la taula "Fotos"
-        storage.setItem("base_de_dades","ok");
-        mapa = L.map("seccio_4").setView([41.72, 1.82], 8);
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {    
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(mapa);
+        storage.setItem("base_de_dades","ok"); 
     }
-    document.getElementById("obturador").addEventListener("change", function() {    // procediment que s'executa quan s'obté el fitxer de la foto realitzada (esdeveniment "change")
+      
+    document.getElementById("obturador").addEventListener("change", function() {   // procediment que s'executa quan s'obté el fitxer de la foto realitzada (esdeveniment "change")
         if(this.files[0] != undefined) {    // instruccions que s'executen només si s'obté algun fitxer (només es processa el primer que es rebi)
             let canvas = document.getElementById("canvas");    // contenidor on es desa temporalment la imatge
             let context = canvas.getContext("2d");
@@ -110,9 +107,12 @@ window.onload = () => {
                 document.getElementById("icona_camera").style.display = "none";    // s'oculta la icona que hi havia abans de fer la foto
                 document.getElementById("desa").style.display = "unset";    // es mostra el botó per desar la foto
             }
-        }
-    });
-}
+        }});
+        mapa = L.map("seccio_4").setView([41.72, 1.82], 8);    // assigna el mapa a la secció, centrat en el punt i amb el nivell de zoom
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {    // capa d'OpenStreetMap
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'    // autoria de la capa
+    }).addTo(mapa);    // s'afegeix la capa al mapa
+    }
 function desa_foto() {
     let nou_registre = {    // contingut del nou registre de la base de dades
         Usuari: usuari,    // nom d'usuari
