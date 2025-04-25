@@ -295,3 +295,22 @@ function mostra_diagrama() {
         canvas_creat = true;
     } 
 }
+function peticio() {
+    const canal = "2897202";    // s'han de substituir els asteriscs pel codi del canal
+    const camp = "1";    // el camp 1 (nivell de llum)
+    const max_dades = 10;    // nombre de valors que es volen visualitzar simultàniament
+    const ts_url = "https://api.thingspeak.com/channels/" + canal + "/fields/" + camp + "/last.json"    // url que sol·licita el valor més recent
+    fetch(ts_url)
+        .then(resposta => resposta.json())
+        .then(resposta => {
+            let valor = Number(resposta["field1"]);    // converteix el tipus de valor rebut (text) en nombre.
+            document.getElementById("div_valor").innerHTML = valor;
+            if (valors[0].length >= max_dades) {
+                valors[0].shift();    // elimina el primer valor de la llista d'etiquetes
+                valors[1].shift();    // elimina el primer valor de la llista de valors
+            }
+            valors[0].push(new Date().toLocaleTimeString());    // afegeix l'hora actual a la llista d'etiquetes
+            valors[1].push(valor);    // afegeix el valor rebut a la llista de valors
+            diagrama.update();    // actualitza el diagrama d'acord amb el valor rebut
+        });
+}
