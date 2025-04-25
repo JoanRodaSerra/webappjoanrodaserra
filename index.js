@@ -1,6 +1,9 @@
 let validat = false;    // variable que permet saber si hi ha algun usuari validat
 let nom, contrasenya;
 let model, webcam, prediccions, maxPrediccions;
+let canvas_creat = false;
+let diagrama;
+let valors = [[],[]];
 let scriptURL = "https://script.google.com/macros/s/AKfycbzXHfQhXCcVHNocS3nK7P9q60aANFeU6liH5-4ycGTH4_e9rY5a7Kwm5rOcumcXl8pM/exec"    // s'ha de substituir la cadena de text per la URL del script
 
 function canvia_seccio(num_boto) {
@@ -26,6 +29,9 @@ function canvia_seccio(num_boto) {
             if (typeof geoID === "undefined") {    // si encara no s'han obtingut les dades de localització del dispositiu
                 navigator.geolocation.watchPosition(geoExit);    // inicia el seguiment de la localització del dispositiu
             }
+        if (num_boto == 6) {
+                mostra_diagrama();
+             }
         }
     }
 }
@@ -269,4 +275,23 @@ async function prediu() {
         const classe = prediccio[i].className + ": " + prediccio[i].probability.toFixed(2);    // es conserven dues xifres decimals
         prediccions.childNodes[i].innerHTML = classe;
     }
+}
+function mostra_diagrama() {
+    if (!canvas_creat) {    // només si no s'ha creat anteriorment
+        diagrama = new Chart(document.getElementById("diagrama"), {
+            type : 'line',    // tipus de diagrama
+            data : {
+                labels : valors[0],    // etiquetes de l'eix X
+                datasets : [
+                        {
+                            data : valors[1],    // valors mesurats
+                            label : "Nivell de llum",    // títol del diagrama
+                            borderColor : "blue",    // color de la línia
+                        }]
+            },
+        });
+        peticio();    // funció que sol·licita el valor més recent del canal de ThingSpeak
+        setInterval(peticio, 20000);    // es sol·licita un valor cada 20 segons, un interval de temps adient per a l'entorn ThingSpeak
+        canvas_creat = true;
+    } 
 }
