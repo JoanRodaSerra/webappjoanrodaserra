@@ -42,16 +42,14 @@
 
 
     <div id="seccio_1" class="seccio">
-        Secció 1
+        Joan 
     </div>
 
     <div id="seccio_2" class="seccio">
       <div id="div_foto">    
         <img id="foto">
-        <i id="icona_camera" class="fa-solid fa-image"></i> 
-        <i id="desa" class="fa-solid fa-check" onclick="desa_foto()"></i>
-        <img id="foto" onclick="mostra_foto(0)">
-        <img id="foto_gran" onclick="retorn_a_seccio()" />
+          <i id="icona_camera" class="fa-solid fa-image"></i> 
+          <i id="desa" class="fa-solid fa-check" onclick="desa_foto()"></i>
       </div>
       <div id="div_control">    <!-- contenidor dels botons per fer i desar la foto -->
           <label for="obturador">    <!-- etiqueta auxiliar per ocultar el botó predeterminat -->
@@ -64,6 +62,8 @@
     <canvas id="canvas"></canvas>
 <div id="div_gran">
   <img id="foto_gran" />
+  <img id="foto" onclick="mostra_foto(0)">
+  <img id="foto_gran" onclick="retorn_a_seccio(2)" />
 </div>
 
 <div id="seccio_3" class="seccio">
@@ -94,7 +94,7 @@
     <div id="seccio_6" class="seccio">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
       <div id="div_diagrama">    <!-- contenidor del diagrama de línies -->
-        NIVELL DE LLUM
+        NIVELL DE LLUM JOAN
         <canvas id="diagrama"></canvas>   <!-- espai que ocuparà el diagrama --> 
       </div>
       <div id="div_valor">    <!-- contenidor del valor més actual -->
@@ -109,7 +109,5 @@
       <i id="boto_6" class="fa-solid fa-chart-line" onclick="canvia_seccio(6)"></i>
       <i class="fa-solid fa-right-from-bracket" onclick="tanca_sessio()"></i>
     </div>  
-    
-    </div>
   </body>
 </html>
