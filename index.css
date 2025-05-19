@@ -203,7 +203,7 @@ body {
 }
 .llista_fila i {    /* icona per esborrar la foto */
     flex: 1;
-    color: #000000;
+    color: #24478f;
     font-size: 4vmax !important;
     cursor: pointer;
 }
