@@ -7,37 +7,39 @@ let valors = [[],[]];
 let scriptURL = "https://script.google.com/macros/s/AKfycbzXHfQhXCcVHNocS3nK7P9q60aANFeU6liH5-4ycGTH4_e9rY5a7Kwm5rOcumcXl8pM/exec"    // s'ha de substituir la cadena de text per la URL del script
 
 function canvia_seccio(num_boto) {
-    
-    const menu = document.getElementById("menu");
-    const num_botons = menu.children.length;    // el nombre de botons dins de l'element "menu"
-    for (let i = 1; i < num_botons; i++) {
-        let boto = document.getElementById("boto_" + i);
-        let seccio = document.getElementById("seccio_" + i);
-        if (i == num_boto) {
-            boto.style.color = "#24478f";    // es destaca la secció activa amb el canvi de colors del botó corresponent
-            boto.style.backgroundColor = "#e0d2e5";
-            seccio.style.display = "flex";    // es fa visible la secció activa
-        }
-        else {
-            boto.style.color = "white";    // colors dels botons de seccions inactives
-            boto.style.backgroundColor = "#24478f";
-            seccio.style.display = "none";    // s'oculten les seccions inactives
-        }
-        if (num_boto == 3) {    // si es prem el botó de la secció "Galeria"
-            omple_llista();
-        }
-        if (num_boto == 4) {
-            mapa.invalidateSize();
-            if (typeof geoID === "undefined") {    // si encara no s'han obtingut les dades de localització del dispositiu
-                navigator.geolocation.watchPosition(geoExit);    // inicia el seguiment de la localització del dispositiu
+    if(validat) { 
+        const menu = document.getElementById("menu");
+        const num_botons = menu.children.length;    // el nombre de botons dins de l'element "menu"
+        for (let i = 1; i < num_botons; i++) {
+            let boto = document.getElementById("boto_" + i);
+            let seccio = document.getElementById("seccio_" + i);
+            if (i == num_boto) {
+                boto.style.color = "#24478f";    // es destaca la secció activa amb el canvi de colors del botó corresponent
+                boto.style.backgroundColor = "#e0d2e5";
+                seccio.style.display = "flex";    // es fa visible la secció activa
+            }
+            else {
+                boto.style.color = "white";    // colors dels botons de seccions inactives
+                boto.style.backgroundColor = "#24478f";
+                seccio.style.display = "none";    // s'oculten les seccions inactives
             }
         }
-        if (num_boto == 6) {
-            mostra_diagrama();
+    }    
+    if (num_boto == 3) {    // si es prem el botó de la secció "Galeria"
+        omple_llista();
+    }
+    if (num_boto == 4) {
+        mapa.invalidateSize();
+        if (typeof geoID === "undefined") {    // si encara no s'han obtingut les dades de localització del dispositiu
+            navigator.geolocation.watchPosition(geoExit);    // inicia el seguiment de la localització del dispositiu
         }
     }
-    
+    if (num_boto == 6) {
+        mostra_diagrama();
+    }
 }
+    
+
 function inici_sessio() {
     nom = document.getElementById("nom_usuari").value;    // la propietat "value" d'un quadre de text correspon al text escrit per l'usuari
     contrasenya = document.getElementById("contrasenya").value;
@@ -93,9 +95,10 @@ function nou_usuari() {
 
 function tanca_sessio() {
     if (validat) {
-        if (confirm("Vols tancar la sessió?")) {    // S'ha respost "Sí"
+        let vull_sortir = window.confirm("Vols tancar la sessió?");
+        if (vull_sortir) {
             storage.setItem("usuari", "");
-            location.reload();    // recàrrega de la pàgina, es reinicialitzen totes les variables
+            location.reload();
         }
     }
 }
